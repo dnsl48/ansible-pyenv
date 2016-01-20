@@ -1,0 +1,5 @@
+---
+
+- name: pyenv rehash
+
+  command: /bin/bash -lci "pyenv rehash"

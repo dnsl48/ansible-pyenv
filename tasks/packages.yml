@@ -1,0 +1,28 @@
+---
+
+- name: install packages
+
+  become: true
+
+  package: >-
+    name={{ item }}
+    state=present
+
+  with_items:
+    - build-essential
+    - curl
+    - git
+
+    - libbz2-dev
+    - libreadline-dev
+    - libsqlite3-dev
+    - libssl-dev
+
+    - llvm
+    - make
+
+    - wget
+    - zlib1g-dev
+
+
+  tags: [ packages ]

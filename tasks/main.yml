@@ -1,0 +1,8 @@
+---
+
+- include: packages.yml
+
+- include: pyenv.yml
+
+- include: plugins/virtualenv.yml
+  when: pyenv_virtualenv_version != ""

@@ -1,0 +1,79 @@
+---
+
+
+
+- include_vars: Debian.yml
+  when: ansible_os_family == 'Debian'
+
+
+
+- name: pyenv checkout
+
+  git: >-
+    repo=https://github.com/yyuu/pyenv.git
+    dest={{ pyenv_root }}
+    update={{ pyenv_pull_from_github }}
+    version={{ pyenv_version }}
+
+  tags: [ main ]
+
+
+
+
+- name: patch $PATH
+
+  lineinfile: >-
+    dest={{ pyenv_profile }}
+    state=present
+    create=yes
+    line={{ item }}
+
+  with_items:
+    - export PYENV_ROOT="{{ pyenv_root }}"
+    - export PATH="$PYENV_ROOT/bin:$PATH"
+    - eval "$(pyenv init -)"
+
+  tags: [ main ]
+
+
+
+
+- name: install python default version
+
+  command: /bin/bash -lci "pyenv install {{ pyenv_python_version_default }}"
+  args:
+    creates: "{{ pyenv_root }}/versions/{{ pyenv_python_version_default }}"
+
+  notify: [ pyenv rehash ]
+
+  when: pyenv_python_version_default != ""
+
+  tags: [ main ]
+
+
+
+
+- name: use python default version for the project
+
+  command: /bin/bash -lci "cd {{ project_home }} && pyenv local {{ pyenv_python_version_default }}"
+  args:
+    creates: "{{ project_home }}/.python-version"
+
+  when: pyenv_python_version_default != ""
+
+  tags: [ main ]
+
+
+
+
+- name: install python additional versions
+
+  command: /bin/bash -lci "pyenv install {{ item }}"
+  args:
+    creates: "{{ pyenv_root }}/versions/{{ item }}"
+
+  notify: [ pyenv rehash ]
+
+  with_items: pyenv_python_versions
+
+  tags: [ main ]

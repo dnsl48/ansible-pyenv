@@ -1,0 +1,66 @@
+---
+
+- name: pyenv plugin virtualenv
+
+  git: >-
+    repo=https://github.com/yyuu/pyenv-virtualenv.git
+    dest={{ pyenv_root }}/plugins/pyenv-virtualenv
+    update={{ pyenv_pull_from_github }}
+    version={{ pyenv_virtualenv_version }}
+
+  tags: [ plugins ]
+
+
+
+
+- name: pyenv plugin virtualenv autostart
+
+  lineinfile: >-
+    dest={{ pyenv_profile }}
+    state=present
+    create=yes
+    line={{ item }}
+
+  with_items:
+    - eval "$(pyenv virtualenv-init -)"
+
+  tags: [ plugins ]
+
+
+
+
+- name: pyenv plugin virtualenv setup virtualenv for the project
+
+  command: /bin/bash -lci "cd {{ project_home }} && pyenv virtualenv {{ pyenv_python_version_default }} {{ project_name }}"
+  args:
+    creates: "{{ pyenv_root }}/versions/{{ pyenv_python_version_default }}/envs/{{ project_name }}"
+
+  when: >-
+    pyenv_python_version_default != ""
+    and
+    project_name != ""
+
+
+  tags: [ plugins ]
+
+
+
+
+- name: pyenv plugin virtualenv auto activation
+
+  lineinfile: >-
+    dest={{ pyenv_profile }}
+    state=present
+    create=yes
+    line={{ item }}
+
+  with_items:
+    - export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+    - pyenv activate {{ project_name }}
+
+  when: >-
+    pyenv_python_version_default != ""
+    and
+    project_name != ""
+
+  tags: [ plugins ]
