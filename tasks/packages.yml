@@ -9,19 +9,16 @@
     state=present
 
   with_items:
-    # - build-essential
     - git
 
-    # - libbz2-dev
-    # - libreadline-dev
-    # - libsqlite3-dev
-    # - libssl-dev
-
-    # - llvm
-    # - make
-
-    # - wget
-    # - zlib1g-dev
+    - make
+    - gcc
+    - g++
+    - libbz2-dev
+    - libreadline-dev
+    - libsqlite3-dev
+    - libssl-dev
+    - zlib1g-dev
 
 
   tags: [ packages ]
