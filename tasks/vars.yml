@@ -1,0 +1,21 @@
+---
+
+
+- name: Include Debian variables
+  include_vars: Debian.yml
+  when: ansible_os_family == 'Debian'
+
+
+- name: Include Debian packages list
+  include_vars: Debian_packages.yml
+  when: ansible_os_family == 'Debian' and pyenv_packages == ""
+
+
+- name: Include RedHat variables
+  include_vars: RedHat.yml
+  when: ansible_os_family == 'RedHat'
+
+
+- name: Include RedHat packages list
+  include_vars: RedHat_packages.yml
+  when: ansible_os_family == 'RedHat' and pyenv_packages == ""

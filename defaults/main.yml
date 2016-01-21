@@ -1,11 +1,5 @@
 ---
 
-# Path to the home directory of the project
-project_home: "~"
-
-# Name of a project if exists
-project_name: ""
-
 
 # Path to .pyenv root directory
 pyenv_root: "{{ project_home }}/.pyenv"
@@ -24,3 +18,7 @@ pyenv_python_versions: []
 
 # Version of pyenv-virtualenv plugin for installation (by default not to be installed)
 pyenv_virtualenv_version: ""
+
+
+# List of packages to be installed
+pyenv_packages: ""

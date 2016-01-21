@@ -1,24 +1,12 @@
 ---
 
-- name: install packages
 
-  become: true
-
-  package: >-
-    name={{ item }}
-    state=present
-
-  with_items:
-    - git
-
-    - make
-    - gcc
-    - g++
-    - libbz2-dev
-    - libreadline-dev
-    - libsqlite3-dev
-    - libssl-dev
-    - zlib1g-dev
+- include: vars.yml
 
 
-  tags: [ packages ]
+- include: packages/Debian.yml
+  when: ansible_os_family == 'Debian'
+
+
+- include: packages/RedHat.yml
+  when: ansible_os_family == 'RedHat'

@@ -1,9 +1,8 @@
 ---
 
 
+- include: vars.yml
 
-- include_vars: Debian.yml
-  when: ansible_os_family == 'Debian'
 
 
 

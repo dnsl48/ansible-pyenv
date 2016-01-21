@@ -1,0 +1,4 @@
+---
+
+# Shell initial script
+pyenv_profile: ~/.bash_profile

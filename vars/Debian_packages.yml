@@ -1,0 +1,12 @@
+---
+
+pyenv_packages:
+  - git
+  - gcc
+  - make
+  - libbz2-dev
+  - libssl-dev
+  - libreadline-dev
+  - libsqlite3-dev
+  - zlib1g-dev
+  - patch

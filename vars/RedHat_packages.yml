@@ -1,0 +1,14 @@
+---
+
+pyenv_packages:
+  - git
+  - gcc
+  - make
+  - bzip2-devel
+  - openssl-devel
+  - readline-devel
+  - sqlite-devel
+  - zlib-devel
+  - patch
+
+  - libselinux-python
