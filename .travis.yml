@@ -24,8 +24,7 @@ install:
 script:
   # Basic role syntax check
   - ansible-playbook tests/test.yml -i tests/inventory --syntax-check
-  - ansible-playbook tests/test.yml -i tests/inventory
-  - echo "It's good"
+  - ansible-playbook tests/test.yml -i tests/inventory --ssh-extra-args="-o StrictHostKeyChecking=no"
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
